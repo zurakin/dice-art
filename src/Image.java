@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -67,10 +68,30 @@ public class Image {
         }
     }
 
-
     private void checkValidCoordinates(int y, int x) throws Exception {
         if (x< 0 || x >= imageWidth || y<0 || y >= imageHeight){
             throw new Exception("invalid coordinates");
         }
+    }
+
+    public void toGray(){
+        for (int y=0; y<imageHeight; y++){
+            for (int x=0; x<imageWidth; x++){
+                try {
+                    setRGB(x, y, ARGBToGray(getRGB(x, y)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static int ARGBToGray(int pixel){
+        Color color = new Color(pixel);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+        int greyValue = (int) (0.299 * red + 0.587 * green + 0.114 * blue);
+        return (int) (color.getAlpha() * 0x11000000 + greyValue * 0x00111111);
     }
 }

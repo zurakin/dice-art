@@ -1,9 +1,11 @@
+import java.awt.*;
 import java.io.IOException;
 
 public class Test {
 
     public static void main(String[] args) {
         copyTranslucentImageTest();
+        toGrayTest();
     }
 
     private static void copyTranslucentImageTest(){
@@ -14,6 +16,18 @@ public class Test {
             e.printStackTrace();
         }
     }
+
+    private static void toGrayTest(){
+        try {
+            Image image = new Image("images/cardJoker.png");
+            image.toGray();
+            image.writeImage("images/cardJokerGray.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private static void writeTranslucentImageTest() {
         Image image = new Image(100, 100);
