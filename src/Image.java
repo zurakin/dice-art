@@ -8,6 +8,7 @@ public class Image {
     private final int imageWidth;
     private final int imageHeight;
 
+
     public Image(int imageWidth, int imageHeight){
         this.imageHeight = imageHeight;
         this.imageWidth = imageWidth;
@@ -23,6 +24,15 @@ public class Image {
                 array[y][x] = bufferedImage.getRGB(x, y);
             }
         }
+    }
+
+    public Image(String imagePath) throws IOException {
+        this(getFileBufferedImage(imagePath));
+    }
+
+    private static BufferedImage getFileBufferedImage(String imagePath) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
+        return bufferedImage;
     }
 
     public void setRGB(int x, int y, int rgbValue) throws Exception {
