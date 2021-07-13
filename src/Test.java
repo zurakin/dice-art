@@ -1,9 +1,12 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class Test {
 
     public static void main(String[] args) {
-        toDiceArrayTest();
+        collageTest();
     }
 
     private static void copyTranslucentImageTest(){
@@ -56,5 +59,16 @@ public class Test {
             }
         }
         image.writeImage("images/output.png");
+    }
+
+    public static void collageTest() {
+        try {
+            BufferedImage joker = ImageIO.read(new File("images/cardJoker.png"));
+            DiceImage dice = new DiceImage("images/dice/dieWhite1.png");
+            dice.collage(joker, 0, 0);
+            ImageIO.write(joker, "png", new File("images/joker-dice-collage.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
