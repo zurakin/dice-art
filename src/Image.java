@@ -16,6 +16,12 @@ public class Image {
         array = new int[imageHeight][imageWidth];
     }
 
+    public Image(int[][] diceArray){
+        imageHeight = diceArray.length;
+        imageWidth = diceArray[0].length;
+        array = diceArray;
+    }
+
     public Image(BufferedImage bufferedImage){
         imageHeight = bufferedImage.getHeight();
         imageWidth = bufferedImage.getWidth();
@@ -86,12 +92,45 @@ public class Image {
         }
     }
 
+    private static int naturalConversion(int red, int green, int blue){
+        return (int) (0.299 * red + 0.587 * green + 0.114 * blue);
+    }
     private static int ARGBToGray(int pixel){
         Color color = new Color(pixel);
+        int greyValue = getGreyValue(color);
+        return color.getAlpha() * 0x11000000 + greyValue * 0x00111111;
+    }
+    private static int getGreyValue(Color color){
         int red = color.getRed();
         int green = color.getGreen();
         int blue = color.getBlue();
-        int greyValue = (int) (0.299 * red + 0.587 * green + 0.114 * blue);
-        return (int) (color.getAlpha() * 0x11000000 + greyValue * 0x00111111);
+        return naturalConversion(red, green, blue);
+    }
+
+    public int[][] convertToDice(int width, int height){
+        int[][] diceArray = new int[height][width];
+        int dx = imageHeight/height;
+        int dy = imageWidth/width;
+
+        for (int x=0; x<width; x++){
+            for (int y=0; y<height; y++){
+                diceArray[y][x] = 0xff000000 + getMeanGreyValueOfRectangle(x*dx, y*dy, dx, dy) * 0x00010101;
+            }
+        }
+        return diceArray;
+    }
+
+    private int getMeanGreyValueOfRectangle(int x, int y, int w, int h){
+        int sum = 0;
+        for (int j=y; j<y+h; j++){
+            for (int i=x; i<x+w; i++){
+                try {
+                    sum += getGreyValue(new Color(getRGB(i, j)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sum/(w*h);
     }
 }

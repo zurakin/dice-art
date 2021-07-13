@@ -1,11 +1,9 @@
-import java.awt.*;
 import java.io.IOException;
 
 public class Test {
 
     public static void main(String[] args) {
-        copyTranslucentImageTest();
-        toGrayTest();
+        toDiceArrayTest();
     }
 
     private static void copyTranslucentImageTest(){
@@ -27,7 +25,24 @@ public class Test {
         }
     }
 
+    private static void displayDiceArray(int[][] diceArray){
 
+        for (int[] l: diceArray){
+            for (int x: l){
+                System.out.print(x+" ");
+            }
+            System.out.println("");
+        }
+    }
+
+    private static void toDiceArrayTest(){
+        try {
+            Image image = new Image("images/cardJoker.png");
+            new Image(image.convertToDice(14, 19)).writeImage("images/jokerDice");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     private static void writeTranslucentImageTest() {
         Image image = new Image(100, 100);
