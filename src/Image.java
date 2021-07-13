@@ -107,14 +107,28 @@ public class Image {
         return naturalConversion(red, green, blue);
     }
 
-    public int[][] convertToDice(int width, int height){
-        int[][] diceArray = new int[height][width];
+    public int[][] convertToMeanArray(int width, int height){
+        int[][] meanArray = new int[height][width];
         int dx = imageHeight/height;
         int dy = imageWidth/width;
 
         for (int x=0; x<width; x++){
             for (int y=0; y<height; y++){
-                diceArray[y][x] = 0xff000000 + getMeanGreyValueOfRectangle(x*dx, y*dy, dx, dy) * 0x00010101;
+                meanArray[y][x] = getMeanGreyValueOfRectangle(x*dx, y*dy, dx, dy);
+            }
+        }
+        return meanArray;
+    }
+
+    public static int diceConvertion(int meanValue){
+        return meanValue/(255/6);
+    }
+
+    public static int[][] convertMeanArrayToDiceArray(int[][] meanArray){
+        int[][] diceArray = new int[meanArray.length][meanArray[0].length];
+        for (int y=0; y<meanArray.length; y++){
+            for (int x=0; x<meanArray[0].length; x++){
+                diceArray[y][x] = diceConvertion(meanArray[y][x]);
             }
         }
         return diceArray;

@@ -38,14 +38,6 @@ public class Test {
         }
     }
 
-    private static void toDiceArrayTest(){
-        try {
-            Image image = new Image("images/cardJoker.png");
-            new Image(image.convertToDice(14, 19)).writeImage("images/jokerDice");
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     private static void writeTranslucentImageTest() {
         Image image = new Image(100, 100);
