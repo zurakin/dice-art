@@ -66,7 +66,7 @@ public class Image {
         writeBufferedImageToFile(imagePath, bufferedImage);
     }
 
-    private void writeBufferedImageToFile(String imagePath, BufferedImage bufferedImage) {
+    public static void writeBufferedImageToFile(String imagePath, BufferedImage bufferedImage) {
         try {
             ImageIO.write(bufferedImage, "png", new File(imagePath));
         } catch (IOException e) {
@@ -121,7 +121,11 @@ public class Image {
     }
 
     public static int diceConvertion(int meanValue){
-        return meanValue/(255/6);
+        int diceValue = meanValue/(255/6) + 1;
+        if (diceValue > 6){
+            diceValue = 6;
+        }
+        return diceValue;
     }
 
     public static int[][] convertMeanArrayToDiceArray(int[][] meanArray){
@@ -132,6 +136,36 @@ public class Image {
             }
         }
         return diceArray;
+    }
+
+    public static BufferedImage convertDiceArrayToBufferedImage(int[][] diceArray) throws IOException {
+        DiceImage[] dice = loadDiceImages();
+        int height = diceArray.length;
+        int width = diceArray[0].length;
+        int diceWidth = dice[0].getWidth();
+        int diceHeight = dice[0].getHeight();
+
+        BufferedImage collageImage = emptyCollageImage(width * diceWidth, height * diceHeight);
+
+        for (int y=0; y<height; y++){
+            for (int x=0; x<width; x++){
+                dice[diceArray[y][x]-1].collage(collageImage, x*diceWidth, y*diceHeight);
+            }
+        }
+
+        return collageImage;
+    }
+
+    private static BufferedImage emptyCollageImage(int imageWidth, int imageHeight) {
+        return new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+    }
+
+    private static DiceImage[] loadDiceImages() throws IOException {
+        DiceImage[] dice = new DiceImage[6];
+        for (int i=0; i<6; i++){
+            dice[i] = new DiceImage(String.format("images/dice/dieWhite%d.png", i+1));
+        }
+        return dice;
     }
 
     private int getMeanGreyValueOfRectangle(int x, int y, int w, int h){

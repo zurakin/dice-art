@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Test {
 
     public static void main(String[] args) {
-        collageTest();
+        diceArrayToCollage();
     }
 
     private static void copyTranslucentImageTest(){
@@ -59,6 +59,20 @@ public class Test {
             DiceImage dice = new DiceImage("images/dice/dieWhite1.png");
             dice.collage(joker, 0, 0);
             ImageIO.write(joker, "png", new File("images/joker-dice-collage.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void diceArrayToCollage(){
+        int[][] diceArray = new int[3][3];
+        for (int y=0; y<3; y++){
+            for (int x=0; x<3; x++){
+                diceArray[y][x] = x+y+1;
+            }
+        }
+        try {
+            Image.writeBufferedImageToFile("images/diceToCollageTest.png", Image.convertDiceArrayToBufferedImage(diceArray));
         } catch (IOException e) {
             e.printStackTrace();
         }

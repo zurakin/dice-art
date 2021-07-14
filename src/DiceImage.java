@@ -14,6 +14,14 @@ public class DiceImage {
         height = bufferedImage.getHeight();
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void collage(BufferedImage destinationBufferedImage, int x, int y){
         int []rgb = bufferedImage.getRGB(0, 0, width, height, null, 0, width*height);
         destinationBufferedImage.setRGB(x, y, width, height, rgb, 0, width*height);
