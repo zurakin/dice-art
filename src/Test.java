@@ -80,8 +80,8 @@ public class Test {
 
     public static void DiceArtTest(){
         try {
-            Image source = new Image("images/monkey.jpg");
-            source.generateDiceArt(120, 120, "images/monkeyArtMin.png");
+            Image source = new Image("images/scart.jpg");
+            source.generateDiceArt(140, 137, "images/scartArtDouble.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

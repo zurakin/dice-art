@@ -121,9 +121,9 @@ public class Image {
     }
 
     public static int diceConvertion(int meanValue){
-        int diceValue = meanValue/(255/6) + 1;
-        if (diceValue > 6){
-            diceValue = 6;
+        int diceValue = 12 * meanValue/255;
+        if (diceValue > 11){
+            diceValue = 11;
         }
         return diceValue;
     }
@@ -149,7 +149,7 @@ public class Image {
 
         for (int y=0; y<height; y++){
             for (int x=0; x<width; x++){
-                dice[diceArray[y][x]-1].collage(collageImage, x*diceWidth, y*diceHeight);
+                dice[diceArray[y][x]].collage(collageImage, x*diceWidth, y*diceHeight);
             }
         }
 
@@ -161,9 +161,12 @@ public class Image {
     }
 
     private static DiceImage[] loadDiceImages() throws IOException {
-        DiceImage[] dice = new DiceImage[6];
+        DiceImage[] dice = new DiceImage[12];
         for (int i=0; i<6; i++){
-            dice[i] = new DiceImage(String.format("images/dice/dieWhite%d.png", i+1));
+            dice[i] = new DiceImage(String.format("images/dice/dieWhite_border%d.png", i+1));
+        }
+        for (int i=0; i<6; i++){
+            dice[i+6] = new DiceImage(String.format("images/dice/dieBlack_border%d.png", 6-i));
         }
         return dice;
     }
