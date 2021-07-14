@@ -163,10 +163,10 @@ public class Image {
     private static DiceImage[] loadDiceImages() throws IOException {
         DiceImage[] dice = new DiceImage[12];
         for (int i=0; i<6; i++){
-            dice[i] = new DiceImage(String.format("images/dice/dieWhite_border%d.png", i+1));
+            dice[i] = new DiceImage(String.format("images/dice/dieBlack_border%d.png", i+1));
         }
         for (int i=0; i<6; i++){
-            dice[i+6] = new DiceImage(String.format("images/dice/dieBlack_border%d.png", 6-i));
+            dice[i+6] = new DiceImage(String.format("images/dice/dieWhite_border%d.png", 6-i));
         }
         return dice;
     }
