@@ -181,4 +181,11 @@ public class Image {
         }
         return sum/(w*h);
     }
+
+    public void generateDiceArt(int width , int height, String outputFile) throws IOException {
+        int[][] meanArray = convertToMeanArray(width, height);
+        int[][] diceArray = convertMeanArrayToDiceArray(meanArray);
+        BufferedImage output = convertDiceArrayToBufferedImage(diceArray);
+        writeBufferedImageToFile(outputFile, output);
+    }
 }

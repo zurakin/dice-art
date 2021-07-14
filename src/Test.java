@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Test {
 
     public static void main(String[] args) {
-        diceArrayToCollage();
+        DiceArtTest();
     }
 
     private static void copyTranslucentImageTest(){
@@ -76,5 +76,15 @@ public class Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void DiceArtTest(){
+        try {
+            Image source = new Image("images/cardJoker.png");
+            source.generateDiceArt(28, 38, "images/cardJokerDiceArt.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
