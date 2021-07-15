@@ -28,24 +28,4 @@ public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
-    public void oldMain(String[] args) {
-        if (args.length != 4){
-            System.err.println("Arguments error! Usage: {source_image} {destination_image} {width} {height}");
-            System.exit(8);
-        }
-
-        String inputFile = args[0];
-        String outputFile = args[1];
-        int width = Integer.parseInt(args[2]);
-        int height = Integer.parseInt(args[3]);
-
-        try {
-            Image source = new Image(inputFile);
-            source.generateDiceArt(width, height, outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

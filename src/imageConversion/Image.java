@@ -54,26 +54,18 @@ public class Image {
         return array[y][x];
     }
 
-    public void writeImage(String imagePath){
+    public void writeImage(String imagePath) throws Exception {
         BufferedImage bufferedImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         for (int y=0; y<imageHeight; y++){
             for (int x=0; x<imageWidth; x++){
-                try {
-                    bufferedImage.setRGB(x, y, getRGB(x, y));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bufferedImage.setRGB(x, y, getRGB(x, y));
             }
         }
         writeBufferedImageToFile(imagePath, bufferedImage);
     }
 
-    public static void writeBufferedImageToFile(String imagePath, BufferedImage bufferedImage) {
-        try {
-            ImageIO.write(bufferedImage, "png", new File(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void writeBufferedImageToFile(String imagePath, BufferedImage bufferedImage) throws IOException {
+        ImageIO.write(bufferedImage, "png", new File(imagePath));
     }
 
     private void checkValidCoordinates(int y, int x) throws Exception {
@@ -82,14 +74,10 @@ public class Image {
         }
     }
 
-    public void toGray(){
+    public void toGray() throws Exception {
         for (int y=0; y<imageHeight; y++){
             for (int x=0; x<imageWidth; x++){
-                try {
-                    setRGB(x, y, ARGBToGray(getRGB(x, y)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                setRGB(x, y, ARGBToGray(getRGB(x, y)));
             }
         }
     }
@@ -109,7 +97,7 @@ public class Image {
         return naturalConversion(red, green, blue);
     }
 
-    public int[][] convertToMeanArray(int width, int height){
+    public int[][] convertToMeanArray(int width, int height) throws Exception {
         int[][] meanArray = new int[height][width];
         int dx = imageHeight/height;
         int dy = imageWidth/width;
@@ -173,21 +161,17 @@ public class Image {
         return dice;
     }
 
-    private int getMeanGreyValueOfRectangle(int x, int y, int w, int h){
+    private int getMeanGreyValueOfRectangle(int x, int y, int w, int h) throws Exception {
         int sum = 0;
         for (int j=y; j<y+h; j++){
             for (int i=x; i<x+w; i++){
-                try {
-                    sum += getGreyValue(new Color(getRGB(i, j)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                sum += getGreyValue(new Color(getRGB(i, j)));
             }
         }
         return sum/(w*h);
     }
 
-    public void generateDiceArt(int width , int height, String outputFile) throws IOException {
+    public void generateDiceArt(int width , int height, String outputFile) throws Exception {
         int[][] meanArray = convertToMeanArray(width, height);
         int[][] diceArray = convertMeanArrayToDiceArray(meanArray);
         BufferedImage output = convertDiceArrayToBufferedImage(diceArray);

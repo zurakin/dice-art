@@ -42,7 +42,7 @@ public class Controller {
             source.generateDiceArt(width, height, outputFilePath);
             statusText.setFill(Color.GREEN);
             statusText.setText("Image saved successfully !");
-        } catch (IOException e) {
+        } catch (Exception e) {
             statusText.setFill(Color.RED);
             statusText.setText(e.getMessage());
         }

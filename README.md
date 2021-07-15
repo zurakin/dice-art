@@ -12,6 +12,7 @@ I got the idea from a video similar to this one : https://youtu.be/35Xgx6IfG5I
 * Press **Make Art !**
 
 # screenshots
+![](screenshots/gui.png)
 ![](images/obama.jpg)
 ![](images/obamaArt.png)
 ![](images/monkey.jpg)
