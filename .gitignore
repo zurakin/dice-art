@@ -1,1 +1,4 @@
 images/me.jpeg
+out/*
+.idea
+dice-art.iml
